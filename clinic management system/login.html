@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clinic Login</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login Form</h2>
+      <p>Login to your account</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+          />
+        </div>
+
+        <button type="submit">Sign In</button>
+      </form>
+      <p class="login-text">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </p>
+    </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+  </body>
+</html>
