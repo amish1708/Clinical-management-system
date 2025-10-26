@@ -1,11 +1,13 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// auth.js
+console.log("✅ auth.js loaded");
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCCqh_N2Cx8hQDfkD1It6vhV10TbVTNImA",
   authDomain: "clinic-management-system-8c525.firebaseapp.com",
@@ -16,6 +18,79 @@ const firebaseConfig = {
   measurementId: "G-XNL86F4ZRG",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth();
+
+// ---- SIGNUP ----
+const signupForm = document.getElementById("signupForm");
+if (signupForm) {
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Prevent form from reloading
+    console.log("Signup form submitted");
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document
+      .getElementById("confirmPassword")
+      .value.trim();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Signup successful!");
+      window.location.href = "login.html"; // Redirect to login page
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ---- SIGNUP ----
+  const signupForm = document.getElementById("signupForm");
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document
+        .getElementById("confirmPassword")
+        .value.trim();
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Signup successful!");
+        window.location.href = "login.html";
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+  }
+
+  // ---- LOGIN ----
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful!");
+        window.location.href = "receptionist.html"; // replace with your dashboard
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    });
+  }
+});
